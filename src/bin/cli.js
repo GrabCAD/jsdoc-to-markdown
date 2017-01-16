@@ -74,7 +74,10 @@ if (options.help) {
     jsdoc2md
       .render(options)
       .then(output => {
-        process.stdout.write(output)
+        process.stdout.write(
+            // ensure we have consistent line endings
+            output.replace(/(?:\r\n|\r|\n)/g, require('os').EOL)
+        )
         process.exit(0)
       })
       .catch(handleError)
